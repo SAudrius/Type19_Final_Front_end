@@ -1,11 +1,12 @@
 import { Route, Routes } from 'react-router-dom';
+
 import { AdPage } from './pages/AdPage';
 import { HomePage } from './pages/HomePage';
+import { LoginPage } from './pages/LoginPage';
+import { NotFoundPage } from './pages/NotFoundPage';
+import { RegisterPage } from './pages/RegisterPage';
 import { TownPage } from './pages/TownPage';
 import { TownsPage } from './pages/TownsPage';
-import { LoginPage } from './pages/LoginPage';
-import { RegisterPage } from './pages/RegisterPage';
-import { NotFoundPage } from './pages/NotFoundPage';
 import { UserPage } from './pages/UserPage';
 
 export const App = () => {
