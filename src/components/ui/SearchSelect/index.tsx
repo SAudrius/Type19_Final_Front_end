@@ -1,26 +1,40 @@
 import { Arrow } from "@components/ui";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 
+import { useAppDispatch } from "@/lib/store/hooks";
+import {
+  setSearchCategoryId,
+  setSearchTownId,
+} from "@/lib/store/SearchReducer";
 import { cn } from "@/lib/utils";
+import { useClickRemoveClickOutside } from "@/utils/hooks/useClickRemoveClickOutside";
+
+import { SearchError } from "../SearchError";
+import { SearchLoading } from "../SearchLoading";
+import { SearchOption } from "../SearchOption";
 
 interface SearchSelectProps {
   defaultValue: string;
-  setData: React.Dispatch<React.SetStateAction<SearchData>>;
   classList?: string;
   dataCategories?: Category[];
   dataTowns?: Town[];
+  error: boolean;
+  loading: boolean;
 }
 
 export const SearchSelect = ({
   classList,
-  setData,
   dataCategories,
   dataTowns,
   defaultValue,
+  error,
+  loading,
 }: SearchSelectProps) => {
   const dropDownRef = useRef<HTMLDivElement>(null);
   const [isSelected, setIsSelected] = useState(false);
   const [dataSelected, setDataSelected] = useState(defaultValue);
+
+  const dispatch = useAppDispatch();
 
   const handleSelect = () => {
     setIsSelected((prevState) => !prevState);
@@ -33,27 +47,13 @@ export const SearchSelect = ({
   ) => {
     setDataSelected(fieldName);
     if (type === "town") {
-      setData((prevState) => ({ ...prevState, town: id }));
+      dispatch(setSearchTownId(id));
       return;
     }
-    setData((prevState) => ({ ...prevState, category: id }));
+    dispatch(setSearchCategoryId(id));
   };
 
-  useEffect(() => {
-    // fn on outside elment click remove dropdown
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        dropDownRef.current &&
-        !dropDownRef.current.contains(event.target as Node)
-      ) {
-        setIsSelected(false);
-      }
-    };
-    document.addEventListener("click", handleClickOutside);
-    return () => {
-      document.removeEventListener("click", handleClickOutside);
-    };
-  }, []);
+  useClickRemoveClickOutside(dropDownRef, setIsSelected);
 
   return (
     <div
@@ -72,35 +72,37 @@ export const SearchSelect = ({
       <span className={cn("capitalize text-black/80")}>{dataSelected}</span>
       <ul
         className={cn(
-          "max-h-50 absolute right-0 top-[46px] z-10 mx-4 w-60 flex-col rounded bg-white shadow-xl lg:mx-0",
+          "absolute right-0 top-[46px] z-10 mx-4 max-h-44 w-60 flex-col overflow-auto rounded bg-[#FCFCFC] shadow-2xl lg:mx-0",
           { hidden: !isSelected },
           { flex: isSelected },
         )}
       >
         {dataCategories &&
+          !loading &&
+          !error &&
           dataCategories.map((category) => (
-            <li
-              key={`category-${category.id}`}
-              className="cursor-pointer border-b border-black/10 px-4 py-2 capitalize lg:hover:bg-secondary"
-              data-value={category.id}
-              onClick={() =>
-                handleOptionSelect(category.name, category.id, "category")
-              }
-            >
-              {category.name}
-            </li>
+            <SearchOption
+              key={category.id}
+              id={category.id}
+              name={category.name}
+              stringType="category"
+              handleOptionSelect={handleOptionSelect}
+            />
           ))}
         {dataTowns &&
+          !loading &&
+          !error &&
           dataTowns.map((town) => (
-            <li
-              key={`town-${town.id}`}
-              className="cursor-pointer border-b border-black/10 px-4 py-2 capitalize hover:bg-secondary"
-              data-value={town.id}
-              onClick={() => handleOptionSelect(town.name, town.id, "town")}
-            >
-              {town.name}
-            </li>
+            <SearchOption
+              key={town.id}
+              id={town.id}
+              name={town.name}
+              stringType="town"
+              handleOptionSelect={handleOptionSelect}
+            />
           ))}
+        {!error && loading && <SearchLoading />}
+        {!loading && error && <SearchError />}
       </ul>
       <span>
         <Arrow />

@@ -1,82 +1,52 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+import { SearchInput, SearchSelect } from "@/components/ui";
 import { cn } from "@/lib/utils";
-import { getCategories } from "@/utils/api/requests/categories";
-import { getTowns } from "@/utils/api/requests/towns";
-
-import { SearchSelect } from "..";
+import {
+  getCategories,
+  getClassifiedAds,
+  getTowns,
+} from "@/utils/api/requests";
 
 interface SearchBarProps {
   className: string;
 }
-interface SearchDataError {
-  category: boolean;
-  town: boolean;
-}
 
 export const SearchBar = ({ className }: SearchBarProps) => {
   const navigate = useNavigate();
-  const [searchData, setSeachData] = useState<SearchData>({
-    category: 0,
-    town: 0,
-  });
-  const [searchError, setSearchError] = useState<SearchDataError>({
-    category: false,
-    town: false,
-  });
+  const [classifiedAdsData, setClassifiedAdsData] = useState<ClassifiedAds[]>(
+    [],
+  );
+  const [classifiedAdsDisplayData, setClassifiedAdsDisplayData] = useState<
+    ClassifiedAds[]
+  >([]);
   const [categoriesData, setCategoriesData] = useState<Category[]>([]);
   const [townsData, setTownsData] = useState<Town[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
 
   const handleSearch = () => {
-    console.log(searchData);
-
-    if (!searchData.town && !searchData.category) {
-      setSearchError({
-        town: true,
-        category: true,
-      });
-      return;
-    }
-
-    if (!searchData.town || !searchData.category) {
-      setSearchError({
-        town: !searchData.town,
-        category: !searchData.category,
-      });
-      return;
-    }
-
-    setSearchError((prevState) => ({
-      ...prevState,
-      town: false,
-      category: false,
-    }));
-    console.log("redirect");
-    const searchUrl = `category=${searchData.category}&town=${searchData.town}`;
-    console.log("searchUrl ===", searchUrl);
-    navigate(`/list?${searchUrl}`);
+    navigate(`/list`);
   };
 
   useEffect(() => {
-    const getCategoriesResponse = async () => {
+    const getInitialDataResponse = async () => {
+      setLoading(true);
       try {
-        const categoriesResponse = await getCategories();
+        const [categoriesResponse, townsResponse, classifiedAdsResponse] =
+          await Promise.all([getCategories(), getTowns(), getClassifiedAds()]);
         setCategoriesData(categoriesResponse.data);
-      } catch (err) {
-        console.log("@error");
-      }
-    };
-    const getTownsResponse = async () => {
-      try {
-        const townsResponse = await getTowns();
         setTownsData(townsResponse.data);
+        setClassifiedAdsData(classifiedAdsResponse.data);
+        setClassifiedAdsDisplayData(classifiedAdsResponse.data);
       } catch (err) {
-        console.log("@error");
+        setError(true);
+        console.log("@err", err);
       }
+      setLoading(false);
     };
-    getTownsResponse();
-    getCategoriesResponse();
+    getInitialDataResponse();
   }, []);
 
   return (
@@ -86,33 +56,34 @@ export const SearchBar = ({ className }: SearchBarProps) => {
         className,
       )}
     >
-      <input
-        className="xl:cols-1 h-12 rounded-[20px] border border-secondary/50 px-4 py-3 text-black outline-none focus:border-2 focus:border-secondary lg:col-span-3 lg:rounded-r-none lg:border-r-0 xl:col-span-1"
-        type="text"
-        placeholder="What are you looking for?"
+      <SearchInput
+        classifiedAdsData={classifiedAdsData}
+        setClassifiedAdsData={setClassifiedAdsData}
+        classifiedAdsDisplayData={classifiedAdsDisplayData}
+        setClassifiedAdsDisplayData={setClassifiedAdsDisplayData}
+        classList="lg:col-span-3 lg:rounded-r-none lg:border-r-0 xl:col-span-1"
       />
       <SearchSelect
-        setData={setSeachData}
-        classList={cn(
-          "lg:border-r-0 lg:rounded-none lg:border-l-0 lg:col-span-2 xl:col-span-1",
-          { "border-red-500": searchError.town },
-        )}
         dataTowns={townsData}
         defaultValue="Select Town"
-      />
-      <SearchSelect
-        // ref={categoryRef}
-        setData={setSeachData}
+        loading={loading}
+        error={error}
         classList={cn(
           "lg:border-r-0 lg:rounded-none lg:border-l-0 lg:col-span-2 xl:col-span-1",
-          { "border-red-500": searchError.category },
         )}
+      />
+      <SearchSelect
         dataCategories={categoriesData}
         defaultValue="Select Category"
+        loading={loading}
+        error={error}
+        classList={cn(
+          "lg:border-r-0 lg:rounded-none lg:border-l-0 lg:col-span-2 xl:col-span-1",
+        )}
       />
       <button
         onClick={handleSearch}
-        className="h-12 rounded-[20px] bg-secondary px-4 py-[14px] font-bold uppercase leading-3 tracking-widest lg:col-span-2 lg:rounded-l-none xl:col-span-1 "
+        className="h-12 cursor-pointer rounded-[20px] bg-secondary px-4 py-[14px] font-bold uppercase leading-3 tracking-widest hover:bg-primary lg:col-span-2 lg:rounded-l-none xl:col-span-1 "
       >
         Submit
       </button>

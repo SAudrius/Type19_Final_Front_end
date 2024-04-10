@@ -8,7 +8,7 @@ enum Type {
   rent,
 }
 
-interface Ads {
+interface ClassifiedAds {
   id: number;
   title: string;
   main_image_url: string;
