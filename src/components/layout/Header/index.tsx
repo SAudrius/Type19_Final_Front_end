@@ -17,17 +17,17 @@ export const Header = () => {
         <div className="flex items-center gap-6 lg:w-full lg:justify-between">
           <ul className="hidden items-center gap-6 md:flex">
             <li className="text-lg">
-              <Link to="towns">Adds</Link>
+              <Link to="list">Classified Ads</Link>
             </li>
             <li className="text-lg">
               <Link to="towns">Towns</Link>
             </li>
-            <li className="text-lg">
+            {/* <li className="text-lg">
               <Link to="register">Register</Link>
             </li>
             <li className="text-lg">
               <Link to="login">Login</Link>
-            </li>
+            </li> */}
           </ul>
           {/* TODO: if login display User & add trip. If not logged in then display login and register */}
           <ul className="flex items-center gap-3 sm:gap-6">

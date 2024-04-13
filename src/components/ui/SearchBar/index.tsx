@@ -15,11 +15,11 @@ interface SearchBarProps {
 
 export const SearchBar = ({ className }: SearchBarProps) => {
   const navigate = useNavigate();
-  const [classifiedAdsData, setClassifiedAdsData] = useState<ClassifiedAds[]>(
+  const [classifiedAdsData, setClassifiedAdsData] = useState<ClassifiedAd[]>(
     [],
   );
   const [classifiedAdsDisplayData, setClassifiedAdsDisplayData] = useState<
-    ClassifiedAds[]
+    ClassifiedAd[]
   >([]);
   const [categoriesData, setCategoriesData] = useState<Category[]>([]);
   const [townsData, setTownsData] = useState<Town[]>([]);
@@ -61,24 +61,22 @@ export const SearchBar = ({ className }: SearchBarProps) => {
         setClassifiedAdsData={setClassifiedAdsData}
         classifiedAdsDisplayData={classifiedAdsDisplayData}
         setClassifiedAdsDisplayData={setClassifiedAdsDisplayData}
-        classList="lg:col-span-3 lg:rounded-r-none lg:border-r-0 xl:col-span-1"
+        className="lg:col-span-3 lg:rounded-r-none lg:border-r-0 xl:col-span-1"
       />
       <SearchSelect
         dataTowns={townsData}
-        defaultValue="Select Town"
         loading={loading}
         error={error}
-        classList={cn(
-          "lg:border-r-0 lg:rounded-none lg:border-l-0 lg:col-span-2 xl:col-span-1",
+        className={cn(
+          "lg:col-span-2 lg:rounded-none lg:border-l-0 lg:border-r-0 xl:col-span-1",
         )}
       />
       <SearchSelect
         dataCategories={categoriesData}
-        defaultValue="Select Category"
         loading={loading}
         error={error}
-        classList={cn(
-          "lg:border-r-0 lg:rounded-none lg:border-l-0 lg:col-span-2 xl:col-span-1",
+        className={cn(
+          "lg:col-span-2 lg:rounded-none lg:border-l-0 lg:border-r-0 xl:col-span-1",
         )}
       />
       <button

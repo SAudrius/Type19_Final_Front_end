@@ -1,10 +1,9 @@
 export const filterClassiefiedAdsData = (
-  arr: ClassifiedAds[],
+  arr: ClassifiedAd[],
   townId: number,
   categoryId: number,
   searchString: string,
 ) => {
-  console.log("arr ===", arr);
   const filteredClassiefiedAdsData = arr.filter((classifiedAd) => {
     if (categoryId === 0 && townId === 0) {
       const startWith = classifiedAd.title.startsWith(searchString);

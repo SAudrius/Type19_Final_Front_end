@@ -1,10 +1,13 @@
 import { Arrow } from "@components/ui";
 import { useRef, useState } from "react";
 
-import { useAppDispatch } from "@/lib/store/hooks";
+import { useAppDispatch, useAppSelector } from "@/lib/store/hooks";
 import {
   setSearchCategoryId,
+  setSearchCategoryName,
+  setSearchSortId,
   setSearchTownId,
+  setSearchTownName,
 } from "@/lib/store/SearchReducer";
 import { cn } from "@/lib/utils";
 import { useClickRemoveClickOutside } from "@/utils/hooks/useClickRemoveClickOutside";
@@ -14,27 +17,31 @@ import { SearchLoading } from "../SearchLoading";
 import { SearchOption } from "../SearchOption";
 
 interface SearchSelectProps {
-  defaultValue: string;
-  classList?: string;
+  defaultValue?: string;
   dataCategories?: Category[];
   dataTowns?: Town[];
-  error: boolean;
-  loading: boolean;
+  sortOptions?: SortOptions[];
+  className?: string;
+  error?: boolean;
+  loading?: boolean;
 }
 
 export const SearchSelect = ({
-  classList,
+  defaultValue,
   dataCategories,
   dataTowns,
-  defaultValue,
+  sortOptions,
+  className,
   error,
   loading,
 }: SearchSelectProps) => {
   const dropDownRef = useRef<HTMLDivElement>(null);
   const [isSelected, setIsSelected] = useState(false);
-  const [dataSelected, setDataSelected] = useState(defaultValue);
 
   const dispatch = useAppDispatch();
+  const categorySelected = useAppSelector((state) => state.search.categoryName);
+  const TownSelected = useAppSelector((state) => state.search.townName);
+  const [selectedDefault, setSelectedDefault] = useState(defaultValue);
 
   const handleSelect = () => {
     setIsSelected((prevState) => !prevState);
@@ -43,14 +50,22 @@ export const SearchSelect = ({
   const handleOptionSelect = (
     fieldName: string,
     id: number,
-    type: "category" | "town",
+    type: "category" | "town" | "option",
   ) => {
-    setDataSelected(fieldName);
+    console.log("SELECT CLICK");
     if (type === "town") {
       dispatch(setSearchTownId(id));
+      dispatch(setSearchTownName(fieldName));
+      return;
+    }
+    if (type === "option") {
+      console.log("option");
+      setSelectedDefault(fieldName);
+      dispatch(setSearchSortId(id));
       return;
     }
     dispatch(setSearchCategoryId(id));
+    dispatch(setSearchCategoryName(fieldName));
   };
 
   useClickRemoveClickOutside(dropDownRef, setIsSelected);
@@ -62,14 +77,18 @@ export const SearchSelect = ({
       aria-haspopup="listbox"
       className={cn(
         "relative flex h-12 cursor-pointer items-center justify-between rounded-[20px] border border-secondary/50 px-5 py-3 text-black outline-none",
-        classList,
+        className,
         {
           "border-2 border-secondary border-secondary/50 lg:border-2 ":
             isSelected,
         },
       )}
     >
-      <span className={cn("capitalize text-black/80")}>{dataSelected}</span>
+      <span className={cn("capitalize text-black/80")}>
+        {dataCategories && categorySelected}
+        {dataTowns && TownSelected}
+        {selectedDefault && selectedDefault}
+      </span>
       <ul
         className={cn(
           "absolute right-0 top-[46px] z-10 mx-4 max-h-44 w-60 flex-col overflow-auto rounded bg-[#FCFCFC] shadow-2xl lg:mx-0",
@@ -98,6 +117,16 @@ export const SearchSelect = ({
               id={town.id}
               name={town.name}
               stringType="town"
+              handleOptionSelect={handleOptionSelect}
+            />
+          ))}
+        {sortOptions &&
+          sortOptions.map((mode) => (
+            <SearchOption
+              key={mode.id}
+              id={mode.id}
+              name={mode.name}
+              stringType="option"
               handleOptionSelect={handleOptionSelect}
             />
           ))}

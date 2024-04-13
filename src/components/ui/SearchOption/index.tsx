@@ -1,11 +1,11 @@
 interface SearchOptionProps {
   id: number;
   name: string;
-  stringType: "category" | "town";
+  stringType: "category" | "town" | "option";
   handleOptionSelect: (
     fieldName: string,
     id: number,
-    type: "category" | "town",
+    type: "category" | "town" | "option",
   ) => void;
 }
 
@@ -19,6 +19,9 @@ export const SearchOption: React.FC<SearchOptionProps> = ({
     <li
       className="cursor-pointer border-b border-black/10 px-4 py-2 capitalize hover:bg-secondary"
       data-value={id}
+      // onClick={() => {
+      //   console.log("console.log");
+      // }}
       onClick={() => handleOptionSelect(name, id, stringType)}
     >
       {name}
