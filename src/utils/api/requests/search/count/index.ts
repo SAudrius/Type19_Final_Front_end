@@ -1,6 +1,6 @@
 import { api } from "@api/instance";
 
-export interface PostSearch {
+export interface PostSearchCount {
   categoryId: number;
   townId: number;
   searchValue: string;
@@ -8,14 +8,14 @@ export interface PostSearch {
   sortId?: number;
 }
 
-export const postSearch = ({
+export const postSearchCount = ({
   searchValue,
   categoryId,
   townId,
   limit,
   sortId,
-}: PostSearch) =>
-  api.post<ClassifiedAd[]>("/search", {
+}: PostSearchCount) =>
+  api.post<CountResult[]>("/search/count", {
     search: searchValue,
     category: categoryId,
     town: townId,
