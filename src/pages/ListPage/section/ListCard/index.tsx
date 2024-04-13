@@ -14,7 +14,10 @@ export const ListCard = ({ classifiedAd }: ListCardProps) => {
           <div className="h-full rounded-t-md bg-[url('https://picsum.photos/seed/picsum/860/320')] bg-center bg-no-repeat"></div>
         </div>
       </a>
-      <a className="block px-6 " href={`classified-ad/${classifiedAd.town_id}`}>
+      <a
+        className="block px-6 "
+        href={`/classified-ad/${classifiedAd.town_id}`}
+      >
         <h2 className="text-xl font-medium normal-case hover:text-secondary">
           {classifiedAd.title}
         </h2>

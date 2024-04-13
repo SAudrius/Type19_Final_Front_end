@@ -7,12 +7,12 @@ import {
   LoginPage,
   NotFoundPage,
   RegisterPage,
-  TownPage,
   TownsPage,
   UserPage,
 } from "@/pages";
 
 import { ListPage } from "./pages/ListPage";
+import TownPage from "./pages/TownPage";
 
 export const App = () => {
   return (
@@ -23,7 +23,7 @@ export const App = () => {
         <Route path="/list" element={<ListPage />}></Route>
         <Route path="/classified-ad/:id" element={<ClassifiedAd />}></Route>
         <Route path="/towns" element={<TownsPage />}></Route>
-        <Route path="/town/:townId" element={<TownPage />}></Route>
+        <Route path="/town/:id" element={<TownPage />}></Route>
         <Route path="/user" element={<UserPage />}></Route>
         <Route path="/login" element={<LoginPage />}></Route>
         <Route path="/register" element={<RegisterPage />}></Route>
