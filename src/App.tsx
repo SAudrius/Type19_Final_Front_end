@@ -1,4 +1,6 @@
-import { Route, Routes } from "react-router-dom";
+import Cookies from "js-cookie";
+import { useEffect } from "react";
+import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
 
 import { Header } from "@/components/layout/Header/index";
 import {
@@ -11,25 +13,85 @@ import {
   UserPage,
 } from "@/pages";
 
+import { logout } from "./lib/store/AuthReducer";
+import { useAppDispatch, useAppSelector } from "./lib/store/hooks";
+import { selectIsOverlayVisible } from "./lib/store/UiReducer";
+import { cn } from "./lib/utils";
+import { ClassifiedAdCreate } from "./pages/ClassifiedAdCreate";
 import { ListPage } from "./pages/ListPage";
 import TownPage from "./pages/TownPage";
+import { PostRefresh } from "./utils/api/requests/auth/refresh";
 
 export const App = () => {
+  const navigate = useNavigate();
+  const isOverlayVisible = useAppSelector(selectIsOverlayVisible);
+
+  const isLoggedInLocalStorage = localStorage.getItem("isLoggedIn");
+  const refreshToken = Cookies.get("jwtTokenRefresh");
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    const refreshAuthToken = async () => {
+      try {
+        if (!refreshToken) {
+          dispatch(logout());
+          return;
+        }
+        const refreshTokenResponse = await PostRefresh(refreshToken);
+        if (refreshTokenResponse.status === 204) {
+          return;
+        }
+        if (refreshTokenResponse.status !== 200) {
+          throw new Error("Invalid refresh token");
+        }
+        const newToken = refreshTokenResponse.data.token;
+        Cookies.set("jwtToken", newToken);
+        console.log("set new token");
+      } catch (error) {
+        dispatch(logout());
+        navigate("/");
+      }
+    };
+    refreshAuthToken();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isLoggedInLocalStorage, refreshToken]);
+  console.log("isOverlayVisible ===", isOverlayVisible);
+
   return (
-    <>
+    <div className={cn({ "overflow-hidden": isOverlayVisible })}>
       <Header />
       <Routes>
         <Route path="/" element={<HomePage />}></Route>
         <Route path="/list" element={<ListPage />}></Route>
         <Route path="/classified-ad/:id" element={<ClassifiedAd />}></Route>
         <Route path="/towns" element={<TownsPage />}></Route>
+
         <Route path="/town/:id" element={<TownPage />}></Route>
-        <Route path="/user" element={<UserPage />}></Route>
-        <Route path="/login" element={<LoginPage />}></Route>
-        <Route path="/register" element={<RegisterPage />}></Route>
+        {isLoggedInLocalStorage && (
+          <Route path="/user" element={<UserPage />}></Route>
+        )}
+        {isLoggedInLocalStorage && (
+          <Route
+            path="/classified/create"
+            element={<ClassifiedAdCreate />}
+          ></Route>
+        )}
+        {!isLoggedInLocalStorage && (
+          <>
+            <Route path="/login" element={<LoginPage />}></Route>
+            <Route path="/register" element={<RegisterPage />}></Route>
+          </>
+        )}
         <Route path="/*" element={<NotFoundPage />}></Route>
+        {!isLoggedInLocalStorage && (
+          <Route path="/user" element={<Navigate to="/" />} />
+        )}
+        {!isLoggedInLocalStorage && (
+          <Route path="/classified/create" element={<Navigate to="/" />} />
+        )}
+        <Route path="/*" element={<NotFoundPage />} />
       </Routes>
-    </>
+    </div>
   );
 };
 
