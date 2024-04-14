@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 
 import { GlobalError, GlobalLoading, ListCard } from "@/components/ui";
 import { deleteClassifiedAds } from "@/utils/api";
+import { updateClassifiedAdPublic } from "@/utils/api/requests/classifiedAds/public";
 import { getClassifiedAdsByUser } from "@/utils/api/requests/classifiedAds/user/id";
 
 export const AccountClassifiedAds = () => {
@@ -26,6 +27,28 @@ export const AccountClassifiedAds = () => {
       (classifiedAd) => classifiedAd.id !== id,
     );
     setUserClassifiedAds(filteredClassifiedAd);
+    setLoading(false);
+  };
+  const handlePublished = async (id: number) => {
+    setLoading(true);
+    if (!jwtToken) {
+      setError(true);
+      return;
+    }
+    const updateClassifiedAdResponse = await updateClassifiedAdPublic(
+      jwtToken,
+      id,
+    );
+    if (updateClassifiedAdResponse.status !== 200) {
+      setError(true);
+    }
+    const updatedClassifiedAds = userClassifiedAds.map((classifiedAd) => {
+      if (classifiedAd.id === id) {
+        classifiedAd.is_published = !classifiedAd.is_published;
+      }
+      return classifiedAd;
+    });
+    setUserClassifiedAds(updatedClassifiedAds);
     setLoading(false);
   };
   useEffect(() => {
@@ -59,8 +82,14 @@ export const AccountClassifiedAds = () => {
               key={ClassifiedAd.id}
               classifiedAd={ClassifiedAd}
               handleDelete={handleDelete}
+              handlePublished={handlePublished}
             />
           ))}
+        {userClassifiedAds.length < 1 && !loading && (
+          <p className="mt-16 text-center text-xl md:col-span-2 lg:col-span-3">
+            You don't have any classified adds
+          </p>
+        )}
         {loading && !error && (
           <GlobalLoading
             className="mt-16 md:col-span-2 lg:col-span-3"

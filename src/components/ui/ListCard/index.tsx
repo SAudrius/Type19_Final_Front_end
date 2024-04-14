@@ -4,11 +4,13 @@ interface ListCardProps {
   classifiedAd: ClassifiedAd;
   usersCards?: boolean;
   handleDelete?: (id: number) => void;
+  handlePublished?: (id: number) => void;
 }
 export const ListCard = ({
   classifiedAd,
   usersCards,
   handleDelete,
+  handlePublished,
 }: ListCardProps) => {
   return (
     <div className="grid grid-rows-[240px_1fr_160px_100px] gap-4 rounded-lg border border-black/20 bg-white text-black ">
@@ -35,14 +37,24 @@ export const ListCard = ({
         <Line className="" />
         <div className="mx-6 my-6 flex items-center justify-between ">
           <p className="rounded-md py-2 text-primary">{classifiedAd.price}$</p>
-          {usersCards && handleDelete && (
-            <button
-              onClick={() => handleDelete(classifiedAd.id)}
-              className="cursor-pointer rounded-md border bg-primary px-2 py-2 text-white hover:border-red-500 hover:bg-white hover:font-bold hover:text-red-500"
-            >
-              DELETE
-            </button>
-          )}
+          <div>
+            {usersCards && handlePublished && (
+              <button
+                onClick={() => handlePublished(classifiedAd.id)}
+                className="cursor-pointer rounded-md border bg-primary px-2 py-2 text-white hover:bg-secondary hover:font-bold hover:text-white"
+              >
+                {classifiedAd.is_published ? "Public" : "Publish"}
+              </button>
+            )}
+            {usersCards && handleDelete && (
+              <button
+                onClick={() => handleDelete(classifiedAd.id)}
+                className="cursor-pointer rounded-md border bg-primary px-2 py-2 text-white hover:border-red-500 hover:bg-white hover:font-bold hover:text-red-500"
+              >
+                DELETE
+              </button>
+            )}
+          </div>
         </div>
       </div>
     </div>
