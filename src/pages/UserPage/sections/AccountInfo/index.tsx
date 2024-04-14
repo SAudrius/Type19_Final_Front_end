@@ -45,13 +45,6 @@ export const AccountInfo = () => {
         linkHref="/change"
       />
       <Line className="mt-4" />
-      <UserInfoField
-        className="mt-3"
-        field="Password"
-        value="******"
-        linkLabel="Change password"
-        linkHref="/password"
-      />
     </div>
   );
 };
