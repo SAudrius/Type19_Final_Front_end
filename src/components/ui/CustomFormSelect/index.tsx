@@ -1,7 +1,6 @@
 import { useField } from "formik";
 
 interface CustomFormSelectProps {
-  type: string;
   name: string;
   label: string;
   children: React.ReactNode;

@@ -21,7 +21,6 @@ export const CreateForm = ({ townsData, categoriesData }: CreateFormProps) => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const jwtToken = Cookies.get("jwtToken");
-  console.log("jwtToken ===", jwtToken);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
   return (
@@ -39,7 +38,7 @@ export const CreateForm = ({ townsData, categoriesData }: CreateFormProps) => {
         image_2: "",
         image_3: "",
         image_4: "",
-        jwtToken: jwtToken,
+        isPublished: 0,
       }}
       validationSchema={Yup.object({
         title: Yup.string().required("Title is required"),
@@ -54,7 +53,7 @@ export const CreateForm = ({ townsData, categoriesData }: CreateFormProps) => {
         image_2: Yup.string().required("Main image 2 is require"),
         image_3: Yup.string().required("Main image 3 is require"),
         image_4: Yup.string().required("Main image 4 is require"),
-        jwtToken: Yup.string(),
+        isPublished: Yup.number(),
       })}
       onSubmit={async (values) => {
         if (!jwtToken) {
@@ -74,24 +73,21 @@ export const CreateForm = ({ townsData, categoriesData }: CreateFormProps) => {
           image_2: values.image_2,
           image_3: values.image_3,
           image_4: values.image_4,
-          jwtToken: jwtToken,
+          isPublished: values.isPublished,
         };
-        console.log("submitValues ===", submitValues);
+
         try {
           setLoading(true);
-          const classiefiedAdResponse = await postClassifiedAd(submitValues);
+          const classiefiedAdResponse = await postClassifiedAd(
+            submitValues,
+            jwtToken,
+          );
           if (classiefiedAdResponse.status === 400) {
             setError(true);
           }
-          console.log(
-            "classiefiedAdResponse ===",
-            classiefiedAdResponse.status,
-          );
-          // setClassifiedAds(classiefiedAdResponse.data);
           dispatch(login());
           navigate("/user");
         } catch {
-          console.log("err");
           setError(true);
         }
         setLoading(false);
@@ -138,7 +134,7 @@ export const CreateForm = ({ townsData, categoriesData }: CreateFormProps) => {
             type="text"
             placeholder="Your image 4 image url"
           />
-          <CustomFormSelect type="Town" label="Select category" name="town">
+          <CustomFormSelect label="Select category" name="town">
             <>
               <option value="" defaultChecked>
                 Select town
@@ -151,7 +147,7 @@ export const CreateForm = ({ townsData, categoriesData }: CreateFormProps) => {
                 ))}
             </>
           </CustomFormSelect>
-          <CustomFormSelect type="category" label="Select Town" name="category">
+          <CustomFormSelect label="Select Town" name="category">
             <>
               <option value="" defaultChecked>
                 Select category
@@ -164,7 +160,7 @@ export const CreateForm = ({ townsData, categoriesData }: CreateFormProps) => {
                 ))}
             </>
           </CustomFormSelect>
-          <CustomFormSelect type="type" label="Select type" name="type">
+          <CustomFormSelect label="Select type" name="type">
             <>
               <option defaultChecked value="" disabled>
                 Select type
@@ -177,6 +173,19 @@ export const CreateForm = ({ townsData, categoriesData }: CreateFormProps) => {
               </option>
               <option defaultChecked value="rent">
                 Rent
+              </option>
+            </>
+          </CustomFormSelect>
+          <CustomFormSelect label="Select Published" name="isPublished">
+            <>
+              <option defaultChecked value="" disabled>
+                Show to public
+              </option>
+              <option defaultChecked value="1">
+                Yes
+              </option>
+              <option defaultChecked value="0">
+                No
               </option>
             </>
           </CustomFormSelect>

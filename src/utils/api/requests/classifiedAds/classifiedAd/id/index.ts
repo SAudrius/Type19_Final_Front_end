@@ -1,4 +1,4 @@
-import { api } from "@api/instance";
+import { api, authApi } from "@api/instance";
 
 export interface postClassfiedAd {
   title: string;
@@ -13,11 +13,11 @@ export interface postClassfiedAd {
   image_2: string;
   image_3: string;
   image_4: string;
-  jwtToken: string;
+  isPublished: number;
 }
 
-export const postClassifiedAd = async (body: postClassfiedAd) =>
-  api.post<ClassifiedAd[]>(`/classified-ads`, { ...body });
+export const postClassifiedAd = async (body: postClassfiedAd, token: string) =>
+  authApi(token).post<ClassifiedAd[]>(`/classified-ads`, { ...body });
 
 export const getClassifiedAd = async (id: number) =>
   api.get<ClassifiedAd>(`/classified-ads/${id}`);
