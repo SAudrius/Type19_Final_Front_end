@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils";
-import { ListCard } from "@/pages/ListPage/section/ListCard";
+import { ListCard } from "@/components/ui/ListCard";
 
 interface TownListProps {
   classiefiedAdsByTownData: ClassifiedAd[];

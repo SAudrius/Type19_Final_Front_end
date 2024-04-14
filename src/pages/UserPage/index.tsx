@@ -1,4 +1,4 @@
-import { AccountClassiefiedAds } from "./sections/AccountClassiefiedAds";
+import { AccountClassifiedAds } from "./sections/AccountClassifiedAd";
 import { AccountInfo } from "./sections/AccountInfo";
 
 export const UserPage = () => {
@@ -6,7 +6,7 @@ export const UserPage = () => {
     <div className="container">
       <div>
         <AccountInfo />
-        <AccountClassiefiedAds />
+        <AccountClassifiedAds />
       </div>
     </div>
   );
