@@ -8,5 +8,4 @@ export interface PostLoginBody {
 export const postLogin = async (body: PostLoginBody) =>
   api.post<ResponseMessageToken>("/auth/login", {
     ...body,
-    withCredentials: true,
   });

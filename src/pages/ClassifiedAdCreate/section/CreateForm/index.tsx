@@ -1,10 +1,13 @@
 import { Form, Formik } from "formik";
+import Cookies from "js-cookie";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 
 import { CustomFormField } from "@/components/ui/CustomFormField";
 import { CustomFormSelect } from "@/components/ui/CustomFormSelect";
+import { GlobalError } from "@/components/ui/GlobalError";
+import { GlobalLoading } from "@/components/ui/GlobalLoading";
 import { login } from "@/lib/store/AuthReducer";
 import { useAppDispatch } from "@/lib/store/hooks";
 import { postClassfiedAd, postClassifiedAd } from "@/utils/api";
@@ -17,7 +20,10 @@ interface CreateFormProps {
 export const CreateForm = ({ townsData, categoriesData }: CreateFormProps) => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const [classifiedAds, setClassifiedAds] = useState<ClassifiedAd[]>();
+  const jwtToken = Cookies.get("jwtToken");
+  console.log("jwtToken ===", jwtToken);
+  const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(false);
   return (
     <Formik
       initialValues={{
@@ -33,6 +39,7 @@ export const CreateForm = ({ townsData, categoriesData }: CreateFormProps) => {
         image_2: "",
         image_3: "",
         image_4: "",
+        jwtToken: jwtToken,
       }}
       validationSchema={Yup.object({
         title: Yup.string().required("Title is required"),
@@ -47,10 +54,13 @@ export const CreateForm = ({ townsData, categoriesData }: CreateFormProps) => {
         image_2: Yup.string().required("Main image 2 is require"),
         image_3: Yup.string().required("Main image 3 is require"),
         image_4: Yup.string().required("Main image 4 is require"),
+        jwtToken: Yup.string(),
       })}
-      onSubmit={async (values, { setSubmitting }) => {
-        setSubmitting(true);
-
+      onSubmit={async (values) => {
+        if (!jwtToken) {
+          setError(true);
+          return;
+        }
         const submitValues: postClassfiedAd = {
           title: values.title,
           description: values.description,
@@ -64,17 +74,27 @@ export const CreateForm = ({ townsData, categoriesData }: CreateFormProps) => {
           image_2: values.image_2,
           image_3: values.image_3,
           image_4: values.image_4,
+          jwtToken: jwtToken,
         };
-
+        console.log("submitValues ===", submitValues);
         try {
+          setLoading(true);
           const classiefiedAdResponse = await postClassifiedAd(submitValues);
-          setClassifiedAds(classiefiedAdResponse.data);
+          if (classiefiedAdResponse.status === 400) {
+            setError(true);
+          }
+          console.log(
+            "classiefiedAdResponse ===",
+            classiefiedAdResponse.status,
+          );
+          // setClassifiedAds(classiefiedAdResponse.data);
           dispatch(login());
           navigate("/user");
         } catch {
           console.log("err");
+          setError(true);
         }
-        setSubmitting(false);
+        setLoading(false);
       }}
     >
       {/* // eslint-disable-next-line @typescript-eslint/no-unused-vars */}
@@ -85,7 +105,7 @@ export const CreateForm = ({ townsData, categoriesData }: CreateFormProps) => {
           <CustomFormField
             name="description"
             type="text"
-            placeholder="Your password"
+            placeholder="Your descriptioon"
           />
           <CustomFormField name="price" type="text" placeholder="Your price" />
           <CustomFormField
@@ -101,22 +121,22 @@ export const CreateForm = ({ townsData, categoriesData }: CreateFormProps) => {
           <CustomFormField
             name="image_1"
             type="text"
-            placeholder="Your image 1 image"
+            placeholder="Your image 1 image url"
           />
           <CustomFormField
             name="image_2"
             type="text"
-            placeholder="Your image 2 image"
+            placeholder="Your image 2 image url"
           />
           <CustomFormField
             name="image_3"
             type="text"
-            placeholder="Your image 3 image"
+            placeholder="Your image 3 image url"
           />
           <CustomFormField
             name="image_4"
             type="text"
-            placeholder="Your image 4 image"
+            placeholder="Your image 4 image url"
           />
           <CustomFormSelect type="Town" label="Select category" name="town">
             <>
@@ -167,6 +187,10 @@ export const CreateForm = ({ townsData, categoriesData }: CreateFormProps) => {
           >
             Submit
           </button>
+          {error && !loading && (
+            <GlobalError message={"Somethink went wrong"} />
+          )}
+          {loading && !error && <GlobalLoading />}
         </Form>
       )}
     </Formik>

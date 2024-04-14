@@ -13,6 +13,7 @@ export interface postClassfiedAd {
   image_2: string;
   image_3: string;
   image_4: string;
+  jwtToken: string;
 }
 
 export const postClassifiedAd = async (body: postClassfiedAd) =>
