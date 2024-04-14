@@ -17,7 +17,7 @@ interface SearchInputProps {
     React.SetStateAction<ClassifiedAd[]>
   >;
   className?: string;
-  classNameInput: string;
+  classNameInput?: string;
 }
 export const SearchInput = ({
   classifiedAdsData,
