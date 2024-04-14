@@ -30,7 +30,7 @@ export const MobileMenu = ({ handleClose }: MobileMenuProps) => {
           <ul className="flex flex-col gap-2">
             <li className="text-lg">
               <NavLink onClick={handleNavLinkClick} to="/list">
-                Classified Ads
+                List
               </NavLink>
             </li>
             <li className="text-lg">
@@ -48,22 +48,6 @@ export const MobileMenu = ({ handleClose }: MobileMenuProps) => {
                 <li className="text-lg">
                   <NavLink onClick={handleNavLinkClick} to="/login">
                     Login
-                  </NavLink>
-                </li>
-              </>
-            )}
-          </ul>
-          <ul className="flex items-center justify-between gap-3 sm:gap-6">
-            {isLoggedInLocalStorage && (
-              <>
-                <li className="text-lg">
-                  <NavLink onClick={handleNavLinkClick} to="/user">
-                    <AccountIcon />
-                  </NavLink>
-                </li>
-                <li className="text-lg">
-                  <NavLink onClick={handleNavLinkClick} to="/classified/create">
-                    <CreateIcon />
                   </NavLink>
                 </li>
               </>

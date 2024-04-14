@@ -46,10 +46,10 @@ export const Header = () => {
           <div className="flex items-center gap-6 lg:w-full lg:justify-between">
             <ul className="hidden items-center gap-6 md:flex">
               <li className="text-lg">
-                <NavLink to="/list">Classified Ads</NavLink>
+                <NavLink to="/towns">Towns</NavLink>
               </li>
               <li className="text-lg">
-                <NavLink to="/towns">Towns</NavLink>
+                <NavLink to="/list">List</NavLink>
               </li>
               {!isLoggedInLocalStorage && (
                 <>
