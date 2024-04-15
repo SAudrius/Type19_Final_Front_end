@@ -30,11 +30,8 @@ export const LoginForm = () => {
         };
         try {
           const registerResponse = await postLogin(submitValues);
-          console.log("registerResponse ===", registerResponse.data);
           const jwtToken = registerResponse.data.token;
           const jwtTokenRefresh = registerResponse.data.refreshToken;
-          console.log("jwtToken ===", jwtToken);
-          console.log("jwtTokenRefresh ===", jwtTokenRefresh);
 
           document.cookie = `jwtToken=${jwtToken}; secure;`;
           document.cookie = `jwtTokenRefresh=${jwtTokenRefresh}; secure;`;

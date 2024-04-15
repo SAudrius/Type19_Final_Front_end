@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 
 import { Line } from "@/components/ui";
+import { cn } from "@/lib/utils";
 
 interface ListCardProps {
   classifiedAd: ClassifiedAd;
@@ -14,11 +15,17 @@ export const ListCard = ({
   handleDelete,
   handlePublished,
 }: ListCardProps) => {
+  const isUserLoggedIn = localStorage.getItem("isLoggedIn");
   const inlineStyle = {
     backgroundImage: `url('${classifiedAd.image_main}')`,
   };
   return (
-    <div className="grid grid-rows-[240px_1fr_160px_100px] gap-4 rounded-lg border border-black/20 bg-white text-black ">
+    <div
+      className={cn(
+        "grid grid-rows-[240px_1fr_160px_100px] gap-4 rounded-lg border border-black/20 bg-white text-black",
+        { "border-secondary/50": isUserLoggedIn },
+      )}
+    >
       <Link
         className="block max-h-[240px]"
         to={`/classified-ad/${classifiedAd.id}`}
@@ -39,7 +46,7 @@ export const ListCard = ({
         {classifiedAd.description.substring(0, 120)}
       </p>
       <div className=" max-h-[194px] w-full self-end">
-        <Line className="" />
+        <Line className={cn({ "bg-secondary/50": isUserLoggedIn })} />
         <div className="mx-6 my-6 flex items-center justify-between ">
           <p className="rounded-md py-2 text-primary">{classifiedAd.price}$</p>
           <div>

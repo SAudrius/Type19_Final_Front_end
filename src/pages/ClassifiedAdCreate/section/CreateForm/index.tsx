@@ -153,7 +153,7 @@ export const CreateForm = ({ townsData, categoriesData }: CreateFormProps) => {
                 Select category
               </option>
               {townsData &&
-                categoriesData.map((town) => (
+                townsData.map((town) => (
                   <option key={town.id} value={town.id}>
                     {town.name}
                   </option>
