@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 import { Line } from "@/components/ui";
 
 import { AccountIcon } from "../AccountIcon";
+import { CloseIcon } from "../CloseIcon";
 import { CreateIcon } from "../CreateIcon";
 
 interface MobileMenuProps {
@@ -20,8 +21,8 @@ export const MobileMenu = ({ handleClose }: MobileMenuProps) => {
     <div className="absolute right-0 top-0 z-30 flex h-screen w-[300px] flex-col bg-slate-100">
       <div className="flex items-center justify-between px-4 pt-4">
         <p className="text-2xl">Menu</p>
-        <button className="bg-orange-300" onClick={handleClose}>
-          close
+        <button onClick={handleClose} aria-label="Toggle navigation menu">
+          <CloseIcon />
         </button>
       </div>
       <Line className="my-4" />

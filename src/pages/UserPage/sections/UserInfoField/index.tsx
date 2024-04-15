@@ -23,7 +23,7 @@ export const UserInfoField = ({
 }: UserInfoFieldProps) => {
   return (
     <div className={cn("", className)}>
-      <p className="tracking-wide-6 text-lg capitalize leading-6">
+      <p className="tracking-wide-6 text-lg lowercase leading-6">
         <span className="tracking-wide-6 font-medium uppercase">{field}: </span>
         {value}
         {!value && <SkeletonUserData />}
