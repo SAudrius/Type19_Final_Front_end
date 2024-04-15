@@ -17,6 +17,7 @@ import { logout } from "./lib/store/AuthReducer";
 import { useAppDispatch, useAppSelector } from "./lib/store/hooks";
 import { selectIsOverlayVisible } from "./lib/store/UiReducer";
 import { cn } from "./lib/utils";
+import { ChangPage } from "./pages/ChangePage";
 import { ClassifiedAdCreate } from "./pages/ClassifiedAdCreate";
 import { ListPage } from "./pages/ListPage";
 import TownPage from "./pages/TownPage";
@@ -71,6 +72,9 @@ export const App = () => {
           <Route path="/user" element={<UserPage />}></Route>
         )}
         {isLoggedInLocalStorage && (
+          <Route path="/change" element={<ChangPage />}></Route>
+        )}
+        {isLoggedInLocalStorage && (
           <Route
             path="/classified/create"
             element={<ClassifiedAdCreate />}
@@ -85,6 +89,9 @@ export const App = () => {
         <Route path="/*" element={<NotFoundPage />}></Route>
         {!isLoggedInLocalStorage && (
           <Route path="/user" element={<Navigate to="/" />} />
+        )}
+        {!isLoggedInLocalStorage && (
+          <Route path="/change" element={<Navigate to="/" />} />
         )}
         {!isLoggedInLocalStorage && (
           <Route path="/classified/create" element={<Navigate to="/" />} />

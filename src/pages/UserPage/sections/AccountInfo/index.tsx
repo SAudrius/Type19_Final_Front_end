@@ -41,7 +41,7 @@ export const AccountInfo = () => {
         className="mt-3"
         field="Email"
         value={userData?.email}
-        linkLabel="Change email"
+        linkLabel="Change info"
         linkHref="/change"
       />
       <Line className="mt-4" />
