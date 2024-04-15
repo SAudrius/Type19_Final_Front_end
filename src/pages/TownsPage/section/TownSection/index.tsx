@@ -1,7 +1,7 @@
+import { GlobalError, GlobalLoading } from "@components/ui";
+import { cn } from "@lib/utils";
+import { getTowns } from "@utils/api";
 import { useEffect, useState } from "react";
-
-import { cn } from "@/lib/utils";
-import { getTowns } from "@/utils/api";
 
 import { TownCard } from "../TownCard";
 
@@ -12,7 +12,7 @@ interface TownSectionProps {
 export const TownSection = ({ className }: TownSectionProps) => {
   const [townsData, setTownsData] = useState<Town[]>([]);
   const [loading, setLoading] = useState(false);
-  const [errr, setError] = useState(false);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     setLoading(true);
@@ -22,7 +22,6 @@ export const TownSection = ({ className }: TownSectionProps) => {
         setTownsData(townsResponse.data);
       } catch {
         setError(true);
-        console.log("errror");
       }
       setLoading(false);
     };
@@ -38,10 +37,19 @@ export const TownSection = ({ className }: TownSectionProps) => {
             className,
           )}
         >
-          {townsData.map((town) => (
-            <TownCard key={town.id} townData={town} />
-          ))}
+          {!loading &&
+            !error &&
+            townsData.map((town) => <TownCard key={town.id} townData={town} />)}
         </div>
+        {loading && !error && (
+          <GlobalLoading size="huge" className="flex h-[60vh] items-center" />
+        )}
+        {error && !loading && (
+          <GlobalError
+            className="flex h-[60vh] items-center justify-center text-center"
+            message="Something went wrong"
+          />
+        )}
       </div>
     </div>
   );

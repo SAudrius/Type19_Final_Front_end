@@ -1,6 +1,11 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
+import { useAppDispatch } from "@/lib/store/hooks";
+import {
+  setSearchCategoryId,
+  setSearchCategoryName,
+} from "@/lib/store/SearchReducer";
 import { cn } from "@/lib/utils";
 import { getCategories } from "@/utils/api/requests/categories";
 
@@ -8,6 +13,8 @@ interface CategoriesProps {
   className?: string;
 }
 export const Categories = ({ className }: CategoriesProps) => {
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const [categories, setCategories] = useState<Category[]>([]);
 
   useEffect(() => {
@@ -17,6 +24,11 @@ export const Categories = ({ className }: CategoriesProps) => {
     };
     getCategoriesResponse();
   }, []);
+  const handleCategory = (id: number, name: string) => {
+    dispatch(setSearchCategoryId(id));
+    dispatch(setSearchCategoryName(name));
+    navigate("/list");
+  };
   return (
     <div
       className={cn(
@@ -29,13 +41,13 @@ export const Categories = ({ className }: CategoriesProps) => {
       </p>
       <div className="flex flex-wrap justify-center gap-4">
         {categories.map((category) => (
-          <Link
+          <button
             key={category.id}
-            to={`/list?search=category=${encodeURIComponent(category.name)}`}
+            onClick={() => handleCategory(category.id, category.name)}
             className="items-center rounded-full border-2 px-4 py-2 capitalize hover:border-secondary hover:bg-secondary"
           >
             {category.name}
-          </Link>
+          </button>
         ))}
       </div>
     </div>
