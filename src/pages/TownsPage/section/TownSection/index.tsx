@@ -27,7 +27,6 @@ export const TownSection = ({ className }: TownSectionProps) => {
     };
     getTownsData();
   }, []);
-  console.log("townsData ===", townsData);
   return (
     <div className="container">
       <div className="relative w-full">

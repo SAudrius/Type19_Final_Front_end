@@ -16,7 +16,6 @@ const TownPage = () => {
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
   length;
-  console.log("classiefiedAdsByTownData ===", classiefiedAdsByTownData);
   useEffect(() => {
     const getIntialData = async () => {
       setLoading(true);
@@ -34,7 +33,6 @@ const TownPage = () => {
         if (error) {
           setError(true);
         }
-        console.log(error);
       }
       setLoading(false);
     };
