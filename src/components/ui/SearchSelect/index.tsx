@@ -76,6 +76,7 @@ export const SearchSelect = ({
       className={cn(
         "relative flex h-12 cursor-pointer items-center justify-between rounded-[20px] border border-secondary/50 px-5 py-3 text-black outline-none",
         className,
+        { "gap-3": sortOptions },
         {
           "border-2 border-secondary border-secondary/50 lg:border-2 ":
             isSelected,

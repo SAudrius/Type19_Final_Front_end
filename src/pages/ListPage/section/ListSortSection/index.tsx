@@ -7,8 +7,8 @@ export const ListSortSection = ({
   classifiedAdsCount,
 }: ListSortSectionProps) => {
   const sortOptions: SortOptions[] = [
-    { id: 0, name: "Name (Ascending)" },
-    { id: 1, name: "Name (Descending)" },
+    { id: 0, name: "Title (Ascending)" },
+    { id: 1, name: "Title (Descending)" },
     // Add more options as needed
   ];
   return (
@@ -18,7 +18,9 @@ export const ListSortSection = ({
         {classifiedAdsCount && classifiedAdsCount.map((obj) => obj.count)}
         {classifiedAdsCount.length < 1 && "0"}
       </p>
-      <SearchSelect defaultValue="Categories" sortOptions={sortOptions} />
+      <div>
+        <SearchSelect defaultValue="Sort by" sortOptions={sortOptions} />
+      </div>
     </div>
   );
 };

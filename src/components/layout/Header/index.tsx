@@ -11,6 +11,7 @@ import {
 import { AccountIcon } from "./AccountIcon";
 import { CreateIcon } from "./CreateIcon";
 import { Hamburger } from "./Hamburger";
+import { Logo } from "./Logo";
 import { MobileMenu } from "./MobileMenu";
 
 export const Header = () => {
@@ -38,8 +39,7 @@ export const Header = () => {
       <div className="lg:gap-30 container flex items-center justify-between py-4 md:gap-10 xl:gap-60">
         <p className="text-2xl -tracking-wide text-primary sm:text-3xl sm:tracking-normal md:min-w-56">
           <NavLink to="/">
-            Classified Ads
-            <span className="text-3xl text-secondary sm:text-4xl">4</span>u
+            <Logo />
           </NavLink>
         </p>
         <nav className="lg:w-full">
