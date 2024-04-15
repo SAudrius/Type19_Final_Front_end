@@ -38,7 +38,7 @@ export const CreateForm = ({ townsData, categoriesData }: CreateFormProps) => {
         image_2: "",
         image_3: "",
         image_4: "",
-        isPublished: 0,
+        isPublished: "",
       }}
       validationSchema={Yup.object({
         title: Yup.string().required("Title is required"),
@@ -48,12 +48,12 @@ export const CreateForm = ({ townsData, categoriesData }: CreateFormProps) => {
         type: Yup.string().required("Type is required"),
         town: Yup.string().required("Town is required"),
         category: Yup.string().required("Category is required"),
-        image_main: Yup.string().required("Main image is require"),
-        image_1: Yup.string().required("Main image 1 is require"),
-        image_2: Yup.string().required("Main image 2 is require"),
-        image_3: Yup.string().required("Main image 3 is require"),
-        image_4: Yup.string().required("Main image 4 is require"),
-        isPublished: Yup.number(),
+        image_main: Yup.string().required("Main image is required"),
+        image_1: Yup.string().required("Main image 1 is required"),
+        image_2: Yup.string().required("Main image 2 is required"),
+        image_3: Yup.string().required("Main image 3 is required"),
+        image_4: Yup.string().required("Main image 4 is required"),
+        isPublished: Yup.number().required("Published is required"),
       })}
       onSubmit={async (values) => {
         if (!jwtToken) {
@@ -165,28 +165,18 @@ export const CreateForm = ({ townsData, categoriesData }: CreateFormProps) => {
               <option defaultChecked value="" disabled>
                 Select type
               </option>
-              <option defaultChecked value="sell">
-                Sell
-              </option>
-              <option defaultChecked value="buy">
-                Buy
-              </option>
-              <option defaultChecked value="rent">
-                Rent
-              </option>
+              <option value="sell">Sell</option>
+              <option value="buy">Buy</option>
+              <option value="rent">Rent</option>
             </>
           </CustomFormSelect>
           <CustomFormSelect label="Select Published" name="isPublished">
             <>
-              <option defaultChecked value="" disabled>
+              <option value="" disabled>
                 Show to public
               </option>
-              <option defaultChecked value="1">
-                Yes
-              </option>
-              <option defaultChecked value="0">
-                No
-              </option>
+              <option value="1">Yes</option>
+              <option value="0">No</option>
             </>
           </CustomFormSelect>
 

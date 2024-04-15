@@ -13,7 +13,7 @@ export interface postClassfiedAd {
   image_2: string;
   image_3: string;
   image_4: string;
-  isPublished: number;
+  isPublished: number | string;
 }
 
 export const getClassifiedAds = async () =>
