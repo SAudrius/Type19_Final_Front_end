@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 import { Line } from "@/components/ui";
 
 interface ListCardProps {
@@ -12,24 +14,27 @@ export const ListCard = ({
   handleDelete,
   handlePublished,
 }: ListCardProps) => {
+  const inlineStyle = {
+    backgroundImage: `url('${classifiedAd.image_main}')`,
+  };
   return (
     <div className="grid grid-rows-[240px_1fr_160px_100px] gap-4 rounded-lg border border-black/20 bg-white text-black ">
-      <a
+      <Link
         className="block max-h-[240px]"
-        href={`classified-ad/${classifiedAd.town_id}`}
+        to={`/classified-ad/${classifiedAd.id}`}
       >
         <div className="relative h-[240px] w-full">
-          <div className="h-full rounded-t-md bg-[url('https://picsum.photos/seed/picsum/860/320')] bg-center bg-no-repeat"></div>
+          <div
+            style={inlineStyle}
+            className="aspect-auto h-full rounded-t-md bg-center bg-no-repeat"
+          ></div>
         </div>
-      </a>
-      <a
-        className="block px-6 "
-        href={`/classified-ad/${classifiedAd.town_id}`}
-      >
+      </Link>
+      <Link className="block px-6 " to={`/classified-ad/${classifiedAd.id}`}>
         <h2 className="text-xl font-medium normal-case hover:text-secondary">
           {classifiedAd.title}
         </h2>
-      </a>
+      </Link>
       <p className="px-6 text-black/75">
         {classifiedAd.description.substring(0, 120)}
       </p>

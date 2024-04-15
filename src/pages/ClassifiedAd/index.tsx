@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
+import { GlobalError, GlobalLoading } from "@/components/ui";
 import { getClassifiedAd } from "@/utils/api";
 
 import { SingleAd } from "./section/SingleAd";
@@ -10,12 +11,13 @@ export const ClassifiedAd = () => {
   const [classifiedAd, setClassifiedAd] = useState<ClassifiedAd>();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
-  console.log("searcParams ===", id);
 
   useEffect(() => {
+    setLoading(true);
     const getInitialData = async () => {
       try {
         setLoading(true);
+
         if (!id) {
           throw new Error("Id not found");
         }
@@ -36,11 +38,14 @@ export const ClassifiedAd = () => {
       {classifiedAd && !loading && !error && (
         <SingleAd classifiedAd={classifiedAd} />
       )}
-      {loading && !error && <p className="container text-center">loading...</p>}
+      {loading && !error && (
+        <GlobalLoading size="huge" className="flex h-[80vh] items-center" />
+      )}
       {error && !loading && (
-        <p className="container mt-6 text-center text-red-400">
-          Classified Ad is not found
-        </p>
+        <GlobalError
+          className="flex h-[80vh] items-center justify-center text-center"
+          message="Something went wrong"
+        />
       )}
     </div>
   );

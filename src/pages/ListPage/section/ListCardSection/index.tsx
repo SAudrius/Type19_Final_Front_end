@@ -25,7 +25,7 @@ export const ListCardsSection = ({
         </div>
       )}
       {classifiedAdsDisplayData.length > 0 && (
-        <div className="grid w-full grid-cols-2 gap-6">
+        <div className="grid w-full grid-cols-1 gap-6 md:grid-cols-2">
           {classifiedAdsDisplayData &&
             classifiedAdsDisplayData.map((classifiedAd) => (
               <ListCard key={classifiedAd.id} classifiedAd={classifiedAd} />
