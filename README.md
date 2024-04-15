@@ -1,5 +1,8 @@
 
+### For users
 
+`npm i `
+`npm run dev`
 
 
 
