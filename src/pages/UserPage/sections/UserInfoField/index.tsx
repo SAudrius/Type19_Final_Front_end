@@ -23,14 +23,14 @@ export const UserInfoField = ({
 }: UserInfoFieldProps) => {
   return (
     <div className={cn("", className)}>
-      <p className="tracking-wide-6 text-lg lowercase leading-6">
-        <span className="tracking-wide-6 font-medium uppercase">{field}: </span>
+      <p className="text-lg leading-6 lowercase tracking-wide-6">
+        <span className="font-medium uppercase tracking-wide-6">{field}: </span>
         {value}
         {!value && <SkeletonUserData />}
       </p>
       {linkLabel && linkHref && (
         <Link
-          className="tracking-wide-12 mt-1 inline-block caption-top underline"
+          className="inline-block mt-1 underline tracking-wide-12 caption-top"
           to={linkHref}
         >
           {linkLabel}
@@ -39,7 +39,7 @@ export const UserInfoField = ({
       {infoValues && (
         <button
           type="button"
-          className="tracking-wide-12 mt-1 inline-block caption-top cursor-pointer underline"
+          className="inline-block mt-1 underline cursor-pointer tracking-wide-12 caption-top"
         >
           Change info
         </button>

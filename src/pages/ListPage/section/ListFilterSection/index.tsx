@@ -1,4 +1,4 @@
-import { ListAdvanceSearch } from "..";
+import { ListAdvanceSearch } from "@pages/ListPage/section/";
 
 interface ListFilterSection {
   classifiedAdsData: ClassifiedAd[];

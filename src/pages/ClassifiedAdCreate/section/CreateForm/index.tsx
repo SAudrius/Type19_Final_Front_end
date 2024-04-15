@@ -1,14 +1,14 @@
+import { CustomFormField } from "@components/ui/CustomFormField";
+import { CustomFormSelect } from "@components/ui/CustomFormSelect";
+import { GlobalError } from "@components/ui/GlobalError";
+import { GlobalLoading } from "@components/ui/GlobalLoading";
+import { login } from "@lib/store/AuthReducer";
 import { Form, Formik } from "formik";
 import Cookies from "js-cookie";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 
-import { CustomFormField } from "@/components/ui/CustomFormField";
-import { CustomFormSelect } from "@/components/ui/CustomFormSelect";
-import { GlobalError } from "@/components/ui/GlobalError";
-import { GlobalLoading } from "@/components/ui/GlobalLoading";
-import { login } from "@/lib/store/AuthReducer";
 import { useAppDispatch } from "@/lib/store/hooks";
 import { postClassfiedAd, postClassifiedAd } from "@/utils/api";
 

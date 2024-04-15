@@ -1,9 +1,8 @@
+import { useAppSelector } from "@lib/store/hooks";
 import { ListCardsSection, ListFilterSection } from "@pages/ListPage/section";
+import { PostSearch, postSearch } from "@utils/api";
+import { postSearchCount } from "@utils/api/requests/search/count";
 import { useEffect, useState } from "react";
-
-import { useAppSelector } from "@/lib/store/hooks";
-import { PostSearch, postSearch } from "@/utils/api";
-import { postSearchCount } from "@/utils/api/requests/search/count";
 
 export const ListPage = () => {
   const categoryId = useAppSelector((state) => state.search.categoryId);

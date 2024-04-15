@@ -1,11 +1,9 @@
+import { TownInfo, TownList } from "@pages/TownPage/section/";
+import { getTown } from "@utils/api/requests/towns/town";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 import { getClassifiedAdsByTown } from "@/utils/api/requests/classifiedAds/town/id";
-import { getTown } from "@/utils/api/requests/towns/town";
-
-import { TownInfo } from "./section/TownInfo";
-import { TownList } from "./section/TownList";
 
 const TownPage = () => {
   const { id } = useParams();

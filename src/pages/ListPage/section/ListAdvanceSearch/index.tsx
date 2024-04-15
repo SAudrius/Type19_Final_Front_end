@@ -1,17 +1,17 @@
-import { useEffect, useState } from "react";
-
-import { Line, SearchInput, SearchSelect } from "@/components/ui";
-import { useAppDispatch, useAppSelector } from "@/lib/store/hooks";
+import { useAppDispatch, useAppSelector } from "@lib/store/hooks";
 import {
   setSearchCategoryId,
   setSearchCategoryName,
   setSearchTownId,
   setSearchTownName,
   setSearchValue,
-} from "@/lib/store/SearchReducer";
-import { cn } from "@/lib/utils";
-import { getCategories, getTowns, PostSearch, postSearch } from "@/utils/api";
-import { postSearchCount } from "@/utils/api/requests/search/count";
+} from "@lib/store/SearchReducer";
+import { cn } from "@lib/utils";
+import { getCategories, getTowns, PostSearch, postSearch } from "@utils/api";
+import { postSearchCount } from "@utils/api/requests/search/count";
+import { useEffect, useState } from "react";
+
+import { Line, SearchInput, SearchSelect } from "@/components/ui";
 
 interface ListAdvanceSearchProps {
   classifiedAdsData: ClassifiedAd[];

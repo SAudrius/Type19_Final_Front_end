@@ -1,4 +1,4 @@
-import { ChangeForm } from "./section/ChangeForm";
+import { ChangeForm } from "@pages/ChangePage/section/ChangeForm";
 
 export const ChangPage = () => {
   return (

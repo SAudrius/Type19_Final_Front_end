@@ -1,16 +1,15 @@
+import { GlobalError, GlobalLoading } from "@components/ui";
+import { CustomFormField } from "@components/ui/CustomFormField";
+import { login, setIsLoggedIn } from "@lib/store/AuthReducer";
+import { useAppDispatch } from "@lib/store/hooks";
+import {
+  postRegister,
+  PostRegisterBody,
+} from "@utils/api/requests/auth/register";
 import { Form, Formik } from "formik";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
-
-import { GlobalError, GlobalLoading } from "@/components/ui";
-import { CustomFormField } from "@/components/ui/CustomFormField";
-import { login, setIsLoggedIn } from "@/lib/store/AuthReducer";
-import { useAppDispatch } from "@/lib/store/hooks";
-import {
-  postRegister,
-  PostRegisterBody,
-} from "@/utils/api/requests/auth/register";
 
 export const RegisterForm = () => {
   const dispatch = useAppDispatch();

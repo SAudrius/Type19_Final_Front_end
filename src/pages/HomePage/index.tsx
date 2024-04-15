@@ -1,6 +1,5 @@
 import { HeroSection } from "@pages/HomePage/sections/HeroSection";
-
-import { TownSection } from "../TownsPage/section/TownSection";
+import { TownSection } from "@pages/TownsPage/section/TownSection";
 
 export const HomePage = () => {
   return (

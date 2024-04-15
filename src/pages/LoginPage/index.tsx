@@ -1,6 +1,5 @@
+import { LoginForm } from "@pages/LoginPage/sections/LoginForm";
 import { Link } from "react-router-dom";
-
-import { LoginForm } from "./sections/LoginForm";
 
 export const LoginPage = () => {
   return (

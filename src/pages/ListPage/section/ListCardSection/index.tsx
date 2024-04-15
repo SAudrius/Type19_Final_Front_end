@@ -1,6 +1,5 @@
+import { ListCard } from "@components/ui/ListCard";
 import { ListCardSkeleton, ListSortSection } from "@pages/ListPage/section";
-
-import { ListCard } from "../../../../components/ui/ListCard";
 
 interface ListCardSectionProps {
   classifiedAdsDisplayData: ClassifiedAd[];

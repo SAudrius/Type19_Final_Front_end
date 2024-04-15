@@ -1,10 +1,9 @@
+import { Line } from "@components/ui";
+import { logout } from "@lib/store/AuthReducer";
+import { useAppDispatch } from "@lib/store/hooks";
+import { cn } from "@lib/utils";
 import React from "react";
 import { useNavigate } from "react-router-dom";
-
-import { Line } from "@/components/ui";
-import { logout } from "@/lib/store/AuthReducer";
-import { useAppDispatch } from "@/lib/store/hooks";
-import { cn } from "@/lib/utils";
 
 interface SubLineHeadingProps {
   children: React.ReactNode;
@@ -35,7 +34,7 @@ export const SubLineHeading = ({
       {hasBtn && (
         <div className="flex items-center justify-end">
           <button
-            className="rounded-md border border-primary px-4 py-1 text-primary"
+            className="px-4 py-1 border rounded-md border-primary text-primary"
             onClick={() => authLogout()}
           >
             LOG OUT

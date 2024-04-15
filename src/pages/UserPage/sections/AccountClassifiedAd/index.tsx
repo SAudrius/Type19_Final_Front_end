@@ -1,10 +1,9 @@
+import { GlobalError, GlobalLoading, ListCard } from "@components/ui";
+import { deleteClassifiedAds } from "@utils/api";
+import { updateClassifiedAdPublic } from "@utils/api/requests/classifiedAds/public";
+import { getClassifiedAdsByUser } from "@utils/api/requests/classifiedAds/user/id";
 import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
-
-import { GlobalError, GlobalLoading, ListCard } from "@/components/ui";
-import { deleteClassifiedAds } from "@/utils/api";
-import { updateClassifiedAdPublic } from "@/utils/api/requests/classifiedAds/public";
-import { getClassifiedAdsByUser } from "@/utils/api/requests/classifiedAds/user/id";
 
 export const AccountClassifiedAds = () => {
   const jwtToken = Cookies.get("jwtToken");
@@ -74,10 +73,10 @@ export const AccountClassifiedAds = () => {
 
   return (
     <div className="mt-8">
-      <h2 className="text-center text-3xl tracking-wide ">
+      <h2 className="text-3xl tracking-wide text-center ">
         Your classiefied ads
       </h2>
-      <div className="mt-8 grid w-full gap-4 md:mt-8 md:grid-cols-2 md:gap-6 lg:mt-12 lg:grid-cols-3">
+      <div className="grid w-full gap-4 mt-8 md:mt-8 md:grid-cols-2 md:gap-6 lg:mt-12 lg:grid-cols-3">
         {!loading &&
           userClassifiedAds &&
           userClassifiedAds.map((ClassifiedAd) => (
@@ -90,7 +89,7 @@ export const AccountClassifiedAds = () => {
             />
           ))}
         {userClassifiedAds.length < 1 && !loading && (
-          <p className="mt-16 text-center text-xl md:col-span-2 lg:col-span-3">
+          <p className="mt-16 text-xl text-center md:col-span-2 lg:col-span-3">
             You don't have any classified adds
           </p>
         )}

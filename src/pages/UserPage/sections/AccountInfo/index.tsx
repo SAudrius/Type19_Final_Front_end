@@ -1,11 +1,9 @@
+import { GlobalError, Line } from "@components/ui";
+import { SubLineHeading } from "@pages/UserPage/sections/SubLineHeading";
+import { UserInfoField } from "@pages/UserPage/sections/UserInfoField";
+import { postUser } from "@utils/api/requests/users/user";
 import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
-
-import { GlobalError, Line } from "@/components/ui";
-import { postUser } from "@/utils/api/requests/users/user";
-
-import { SubLineHeading } from "../SubLineHeading";
-import { UserInfoField } from "../UserInfoField";
 
 export const AccountInfo = () => {
   const jwtToken = Cookies.get("jwtToken");
@@ -37,7 +35,7 @@ export const AccountInfo = () => {
   return (
     <div>
       <SubLineHeading hasBtn className="mt-8">
-        <h2 className="tracking-wide-20 drop-shadow-text text-lg uppercase">
+        <h2 className="text-lg uppercase tracking-wide-20 drop-shadow-text">
           Account info
         </h2>
       </SubLineHeading>

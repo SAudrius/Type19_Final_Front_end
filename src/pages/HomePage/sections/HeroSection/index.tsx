@@ -1,5 +1,5 @@
-import { SearchBar } from "@/components/ui";
-import { Categories } from "@/components/ui/Categories";
+import { SearchBar } from "@components/ui";
+import { Categories } from "@components/ui/Categories";
 
 export const HeroSection = () => {
   return (

@@ -3,7 +3,7 @@ import { cn } from "@lib/utils";
 import { getTowns } from "@utils/api";
 import { useEffect, useState } from "react";
 
-import { TownCard } from "../TownCard";
+import { TownCard } from "..";
 
 interface TownSectionProps {
   className?: string;
@@ -34,7 +34,7 @@ export const TownSection = ({
   return (
     <div className="container">
       {heading && (
-        <h1 className="md:mt-16s mt-12 text-center md:text-2xl lg:mt-16 lg:text-4xl">
+        <h1 className="mt-12 text-center md:mt-16s md:text-2xl lg:mt-16 lg:text-4xl">
           Towns
         </h1>
       )}

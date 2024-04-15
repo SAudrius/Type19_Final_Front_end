@@ -1,4 +1,4 @@
-import { SearchSelect } from "@/components/ui";
+import { SearchSelect } from "@components/ui";
 
 interface ListSortSectionProps {
   classifiedAdsCount: CountResult[];

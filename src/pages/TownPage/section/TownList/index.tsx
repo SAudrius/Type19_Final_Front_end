@@ -1,5 +1,5 @@
-import { cn } from "@/lib/utils";
-import { ListCard } from "@/components/ui/ListCard";
+import { ListCard } from "@components/ui/ListCard";
+import { cn } from "@lib/utils";
 
 interface TownListProps {
   classiefiedAdsByTownData: ClassifiedAd[];
