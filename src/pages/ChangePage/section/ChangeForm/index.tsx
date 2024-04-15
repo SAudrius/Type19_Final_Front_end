@@ -43,13 +43,9 @@ export const ChangeForm = () => {
           if (!jwtToken) {
             throw new Error("Somethink went wrong");
           }
-          console.log("values ===", values);
           const updateResponse = await updateUser(jwtToken, submitValues);
-          console.log("updateResponse.status  ===", updateResponse.status);
           if (updateResponse.status === 401) {
-            console.log("hi");
             setError("Password is invalid");
-            console.log("throw error");
             return;
           }
           if (updateResponse.status === 200) {
@@ -58,8 +54,6 @@ export const ChangeForm = () => {
           }
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (err: any) {
-          console.log("@err", err);
-          console.log("err.response.status ===", err.response.status);
           if (err.response && err.response.status === 401) {
             setError("Password is wrong");
           } else {

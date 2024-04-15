@@ -17,7 +17,6 @@ export const ClassifiedAd = () => {
     const getInitialData = async () => {
       try {
         setLoading(true);
-
         if (!id) {
           throw new Error("Id not found");
         }
@@ -25,14 +24,12 @@ export const ClassifiedAd = () => {
         const classiefiedAdResponse = await getClassifiedAd(parsedId);
         setClassifiedAd(classiefiedAdResponse.data);
       } catch {
-        console.log("err");
         setError(true);
       }
       setLoading(false);
     };
     getInitialData();
   }, [id]);
-  console.log("classifiedAd ===", classifiedAd);
   return (
     <div className="">
       {classifiedAd && !loading && !error && (
