@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { GlobalError, Line } from "@/components/ui";
 import { postUser } from "@/utils/api/requests/users/user";
 
-import { SkeletonUserData } from "../../skeleton/SkeletonUserData";
 import { SubLineHeading } from "../SubLineHeading";
 import { UserInfoField } from "../UserInfoField";
 
