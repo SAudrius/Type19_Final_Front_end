@@ -62,7 +62,7 @@ export const ListAdvanceSearch = ({
       dispatch(setSearchTownName("Select Town"));
       dispatch(setSearchValue(""));
     } catch {
-      // setCardError();
+      setError(true);
     }
 
     setCardsLoading(false);
