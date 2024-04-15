@@ -7,15 +7,15 @@ import { Logo } from "../Header/Logo";
 export const Footer = () => {
   const isLoggedInLocalStorage = localStorage.getItem("isLoggedIn");
   return (
-    <div className="mt-32 bg-secondary pb-20 pt-8 md:pb-24 md:pt-12">
-      <div className="container flex justify-start gap-4">
-        <NavLink to="/">
+    <div className="mt-32 bg-secondary pb-12 pt-8 md:pb-16 md:pt-12">
+      <div className="container grid w-full grid-cols-5 justify-start gap-4 md:grid-cols-2">
+        <NavLink className="col-span-1 md:col-span-1" to="/">
           <div className="text-2xl text-primary">
             <Logo />
           </div>
         </NavLink>
-        <nav className="lg:w-full">
-          <div className="flex items-center gap-6 md:w-full md:justify-between">
+        <nav className="col-span-4 md:col-span-1">
+          <div className="flex items-center gap-6 md:w-full md:justify-end">
             <ul className="flex items-center gap-6 text-white">
               <li className="text-lg">
                 <NavLink to="/towns">Towns</NavLink>
@@ -52,6 +52,10 @@ export const Footer = () => {
             </ul>
           </div>
         </nav>
+        <p className="col-span-5 mt-8 md:col-span-2">
+          All right reserver by{" "}
+          <span className="font-bold">Audrius@sabalys.com</span>
+        </p>
       </div>
     </div>
   );

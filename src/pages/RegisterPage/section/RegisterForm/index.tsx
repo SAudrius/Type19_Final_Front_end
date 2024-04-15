@@ -15,7 +15,7 @@ import {
 export const RegisterForm = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const [error, setError] = useState(false);
+  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
   return (
@@ -61,8 +61,14 @@ export const RegisterForm = () => {
           dispatch(setIsLoggedIn(true));
           dispatch(login());
           navigate("/user");
-        } catch {
-          setError(true);
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        } catch (err: any) {
+          console.log("err ===", err);
+          if (err.response.status === 401) {
+            setError("Email already exist");
+          } else {
+            setError("Somethink went wrong");
+          }
         }
         setLoading(false);
       }}
@@ -104,7 +110,7 @@ export const RegisterForm = () => {
           {error && !loading && (
             <GlobalError
               className="flex items-center justify-center text-center"
-              message="Something went wrong"
+              message={error}
             />
           )}
         </Form>

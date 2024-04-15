@@ -7,9 +7,13 @@ import { TownCard } from "../TownCard";
 
 interface TownSectionProps {
   className?: string;
+  heading?: boolean;
 }
 
-export const TownSection = ({ className }: TownSectionProps) => {
+export const TownSection = ({
+  className,
+  heading = true,
+}: TownSectionProps) => {
   const [townsData, setTownsData] = useState<Town[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
@@ -29,6 +33,11 @@ export const TownSection = ({ className }: TownSectionProps) => {
   }, []);
   return (
     <div className="container">
+      {heading && (
+        <h1 className="md:mt-16s mt-12 text-center md:text-2xl lg:mt-16 lg:text-4xl">
+          Towns
+        </h1>
+      )}
       <div className="relative w-full">
         <div
           className={cn(
@@ -41,11 +50,11 @@ export const TownSection = ({ className }: TownSectionProps) => {
             townsData.map((town) => <TownCard key={town.id} townData={town} />)}
         </div>
         {loading && !error && (
-          <GlobalLoading size="huge" className="flex h-[60vh] items-center" />
+          <GlobalLoading size="huge" className="flex items-center" />
         )}
         {error && !loading && (
           <GlobalError
-            className="flex h-[60vh] items-center justify-center text-center"
+            className="flex items-center justify-center text-center"
             message="Something went wrong"
           />
         )}

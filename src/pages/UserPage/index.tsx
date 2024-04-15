@@ -4,7 +4,7 @@ import { AccountInfo } from "./sections/AccountInfo";
 export const UserPage = () => {
   return (
     <div className="container">
-      <div>
+      <div className="min-h-[72vh]">
         <AccountInfo />
         <AccountClassifiedAds />
       </div>
