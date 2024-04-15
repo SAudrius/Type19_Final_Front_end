@@ -1,9 +1,11 @@
 import { Form, Formik } from "formik";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 
+import { GlobalError, GlobalLoading } from "@/components/ui";
 import { CustomFormField } from "@/components/ui/CustomFormField";
-import { setIsLoggedIn } from "@/lib/store/AuthReducer";
+import { login, setIsLoggedIn } from "@/lib/store/AuthReducer";
 import { useAppDispatch } from "@/lib/store/hooks";
 import {
   postRegister,
@@ -13,6 +15,8 @@ import {
 export const RegisterForm = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   return (
     <Formik
@@ -29,6 +33,7 @@ export const RegisterForm = () => {
           .required("Email is required"),
         name: Yup.string().required("Name is required"),
         password: Yup.string()
+          .min(8, "Password must be at least 8 characters")
           .max(20, "Must be 20 characters or less")
           .required("Password is required"),
         repeatPassword: Yup.string()
@@ -37,8 +42,8 @@ export const RegisterForm = () => {
           .oneOf([Yup.ref("password")], "Passwords must match"),
         avatarUrl: Yup.string(),
       })}
-      onSubmit={async (values, { setSubmitting }) => {
-        setSubmitting(true);
+      onSubmit={async (values) => {
+        setLoading(true);
 
         const submitValues: PostRegisterBody = {
           name: values.name,
@@ -50,17 +55,16 @@ export const RegisterForm = () => {
           const registerResponse = await postRegister(submitValues);
           const jwtToken = registerResponse.data.token;
           const jwtTokenRefresh = registerResponse.data.refreshToken;
-          console.log("jwtToken ===", jwtToken);
-          console.log("jwtTokenRefresh ===", jwtTokenRefresh);
 
           document.cookie = `jwtToken=${jwtToken}; secure;`;
           document.cookie = `jwtTokenRefresh=${jwtTokenRefresh}; secure;`;
           dispatch(setIsLoggedIn(true));
+          dispatch(login());
           navigate("/user");
         } catch {
-          console.log("err");
+          setError(true);
         }
-        setSubmitting(false);
+        setLoading(false);
       }}
     >
       {/* // eslint-disable-next-line @typescript-eslint/no-unused-vars */}
@@ -94,6 +98,15 @@ export const RegisterForm = () => {
           >
             Submit
           </button>
+          {loading && !error && (
+            <GlobalLoading size="small" className="flex items-center" />
+          )}
+          {error && !loading && (
+            <GlobalError
+              className="flex items-center justify-center text-center"
+              message="Something went wrong"
+            />
+          )}
         </Form>
       )}
     </Formik>

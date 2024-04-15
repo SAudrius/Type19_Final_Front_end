@@ -52,14 +52,12 @@ export const SearchSelect = ({
     id: number,
     type: "category" | "town" | "option",
   ) => {
-    console.log("SELECT CLICK");
     if (type === "town") {
       dispatch(setSearchTownId(id));
       dispatch(setSearchTownName(fieldName));
       return;
     }
     if (type === "option") {
-      console.log("option");
       setSelectedDefault(fieldName);
       dispatch(setSearchSortId(id));
       return;

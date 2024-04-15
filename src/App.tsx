@@ -17,6 +17,7 @@ import { logout } from "./lib/store/AuthReducer";
 import { useAppDispatch, useAppSelector } from "./lib/store/hooks";
 import { selectIsOverlayVisible } from "./lib/store/UiReducer";
 import { cn } from "./lib/utils";
+import { ChangPage } from "./pages/ChangePage";
 import { ClassifiedAdCreate } from "./pages/ClassifiedAdCreate";
 import { ListPage } from "./pages/ListPage";
 import TownPage from "./pages/TownPage";
@@ -46,7 +47,6 @@ export const App = () => {
         }
         const newToken = refreshTokenResponse.data.token;
         Cookies.set("jwtToken", newToken);
-        console.log("set new token");
       } catch (error) {
         dispatch(logout());
         navigate("/");
@@ -55,7 +55,6 @@ export const App = () => {
     refreshAuthToken();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoggedInLocalStorage, refreshToken]);
-  console.log("isOverlayVisible ===", isOverlayVisible);
 
   return (
     <div className={cn({ "overflow-hidden": isOverlayVisible })}>
@@ -69,6 +68,9 @@ export const App = () => {
         <Route path="/town/:id" element={<TownPage />}></Route>
         {isLoggedInLocalStorage && (
           <Route path="/user" element={<UserPage />}></Route>
+        )}
+        {isLoggedInLocalStorage && (
+          <Route path="/change" element={<ChangPage />}></Route>
         )}
         {isLoggedInLocalStorage && (
           <Route
@@ -85,6 +87,9 @@ export const App = () => {
         <Route path="/*" element={<NotFoundPage />}></Route>
         {!isLoggedInLocalStorage && (
           <Route path="/user" element={<Navigate to="/" />} />
+        )}
+        {!isLoggedInLocalStorage && (
+          <Route path="/change" element={<Navigate to="/" />} />
         )}
         {!isLoggedInLocalStorage && (
           <Route path="/classified/create" element={<Navigate to="/" />} />

@@ -10,5 +10,4 @@ export interface PostRegisterBody {
 export const postRegister = async (body: PostRegisterBody) =>
   api.post<ResponseMessageToken>("/auth/register", {
     ...body,
-    withCredentials: true,
   });

@@ -41,7 +41,6 @@ export const ListPage = () => {
       try {
         const classfiedAdsSearchResponse = await postSearch(filtersData);
         const postSearchResponse = await postSearchCount(filtersData);
-        console.log("postSearchResponse ===", postSearchResponse.data);
         setclassifiedAdsCount(postSearchResponse.data);
         setClassifiedAdsData(classfiedAdsSearchResponse.data);
         setClassifiedAdsDisplayData(classfiedAdsSearchResponse.data);

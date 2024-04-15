@@ -70,7 +70,6 @@ export const SearchInput = ({
   const handleKeyUp = async (e: React.KeyboardEvent<HTMLInputElement>) => {
     try {
       const searchString = (e.target as HTMLInputElement).value;
-      console.log("searchString ===", searchString);
       dispatch(setSearchValue(searchString));
       const filteredClassiefiedAdsData = filterClassiefiedAdsData(
         classifiedAdsData,

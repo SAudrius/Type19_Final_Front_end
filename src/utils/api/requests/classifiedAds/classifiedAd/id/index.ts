@@ -1,22 +1,4 @@
 import { api } from "@api/instance";
 
-export interface postClassfiedAd {
-  title: string;
-  description: string;
-  price: number;
-  phone: number;
-  type: string;
-  town: string;
-  category: string;
-  image_main: string;
-  image_1: string;
-  image_2: string;
-  image_3: string;
-  image_4: string;
-}
-
-export const postClassifiedAd = async (body: postClassfiedAd) =>
-  api.post<ClassifiedAd[]>(`/classified-ads`, { ...body });
-
 export const getClassifiedAd = async (id: number) =>
   api.get<ClassifiedAd>(`/classified-ads/${id}`);
