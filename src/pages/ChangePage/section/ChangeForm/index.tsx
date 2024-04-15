@@ -1,4 +1,3 @@
-import { AxiosError } from "axios";
 import { Form, Formik } from "formik";
 import Cookies from "js-cookie";
 import { useState } from "react";
@@ -58,7 +57,7 @@ export const ChangeForm = () => {
             navigate("/user");
           }
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        } catch (err: any | AxiosError) {
+        } catch (err: any) {
           console.log("@err", err);
           console.log("err.response.status ===", err.response.status);
           if (err.response && err.response.status === 401) {
