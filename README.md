@@ -1,9 +1,9 @@
 
 ### For users
 
-`npm i `
-`npm run dev`
-
+1.`npm i `
+2.`npm run dev`
+3. Then go to [https://github.com/SAudrius/Type19_Last_Dance_Back_End/](github)
 
 
 
