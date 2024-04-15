@@ -13,6 +13,7 @@ import {
   UserPage,
 } from "@/pages";
 
+import { Footer } from "./components/layout/Footer";
 import { logout } from "./lib/store/AuthReducer";
 import { useAppDispatch, useAppSelector } from "./lib/store/hooks";
 import { selectIsOverlayVisible } from "./lib/store/UiReducer";
@@ -96,6 +97,7 @@ export const App = () => {
         )}
         <Route path="/*" element={<NotFoundPage />} />
       </Routes>
+      <Footer />
     </div>
   );
 };

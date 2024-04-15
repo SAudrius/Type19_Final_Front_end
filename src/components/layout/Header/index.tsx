@@ -36,8 +36,8 @@ export const Header = () => {
           onClick={handleClose}
         ></div>
       )}
-      <div className="lg:gap-30 container flex items-center justify-between py-4 md:gap-10 xl:gap-60">
-        <p className="text-2xl -tracking-wide text-primary sm:text-3xl sm:tracking-normal md:min-w-56">
+      <div className="container flex items-center justify-between py-4  md:gap-10">
+        <p className="text-2xl -tracking-wide text-primary sm:text-3xl sm:tracking-normal ">
           <NavLink to="/">
             <Logo />
           </NavLink>
