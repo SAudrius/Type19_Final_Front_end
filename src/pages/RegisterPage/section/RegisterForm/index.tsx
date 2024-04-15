@@ -29,6 +29,7 @@ export const RegisterForm = () => {
           .required("Email is required"),
         name: Yup.string().required("Name is required"),
         password: Yup.string()
+          .min(8, "Password must be at least 8 characters")
           .max(20, "Must be 20 characters or less")
           .required("Password is required"),
         repeatPassword: Yup.string()
