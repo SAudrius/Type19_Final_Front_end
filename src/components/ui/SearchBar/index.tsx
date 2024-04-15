@@ -1,13 +1,8 @@
+import { SearchInput, SearchSelect } from "@components/ui";
+import { cn } from "@lib/utils";
+import { getCategories, getClassifiedAds, getTowns } from "@utils/api/requests";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
-import { SearchInput, SearchSelect } from "@/components/ui";
-import { cn } from "@/lib/utils";
-import {
-  getCategories,
-  getClassifiedAds,
-  getTowns,
-} from "@/utils/api/requests";
 
 interface SearchBarProps {
   className: string;

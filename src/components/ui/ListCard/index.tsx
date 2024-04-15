@@ -1,7 +1,6 @@
+import { Line } from "@components/ui";
+import { cn } from "@lib/utils";
 import { Link } from "react-router-dom";
-
-import { Line } from "@/components/ui";
-import { cn } from "@/lib/utils";
 
 interface ListCardProps {
   classifiedAd: ClassifiedAd;

@@ -1,8 +1,6 @@
+import { cn } from "@lib/utils";
+import { SkeletonUserData } from "@pages/UserPage/skeleton/SkeletonUserData";
 import { Link } from "react-router-dom";
-
-import { cn } from "@/lib/utils";
-
-import { SkeletonUserData } from "../../skeleton/SkeletonUserData";
 
 interface UserInfoFieldProps {
   field: string;

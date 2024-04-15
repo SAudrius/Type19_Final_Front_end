@@ -1,6 +1,5 @@
 import { GlobalError, Line } from "@components/ui";
-import { SubLineHeading } from "@pages/UserPage/sections/SubLineHeading";
-import { UserInfoField } from "@pages/UserPage/sections/UserInfoField";
+import { SubLineHeading, UserInfoField } from "@pages/UserPage/sections";
 import { postUser } from "@utils/api/requests/users/user";
 import Cookies from "js-cookie";
 import { useEffect, useState } from "react";

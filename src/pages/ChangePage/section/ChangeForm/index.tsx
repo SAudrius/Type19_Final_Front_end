@@ -1,8 +1,8 @@
+import { UpdateUser, updateUser } from "@api/requests";
 import { GlobalError, GlobalLoading } from "@components/ui";
 import { CustomFormField } from "@components/ui/CustomFormField";
 import { login } from "@lib/store/AuthReducer";
 import { useAppDispatch } from "@lib/store/hooks";
-import { UpdateUser, updateUser } from "@utils/api/requests/users/user";
 import { Form, Formik } from "formik";
 import Cookies from "js-cookie";
 import { useState } from "react";

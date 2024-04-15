@@ -1,5 +1,5 @@
-import { AccountClassifiedAds } from "./sections/AccountClassifiedAd";
-import { AccountInfo } from "./sections/AccountInfo";
+import { AccountClassifiedAds } from "@pages/UserPage/sections/AccountClassifiedAd";
+import { AccountInfo } from "@pages/UserPage/sections/AccountInfo";
 
 export const UserPage = () => {
   return (

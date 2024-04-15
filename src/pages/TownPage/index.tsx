@@ -1,9 +1,8 @@
 import { TownInfo, TownList } from "@pages/TownPage/section/";
+import { getClassifiedAdsByTown } from "@utils/api/requests/classifiedAds/town/id";
 import { getTown } from "@utils/api/requests/towns/town";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-
-import { getClassifiedAdsByTown } from "@/utils/api/requests/classifiedAds/town/id";
 
 const TownPage = () => {
   const { id } = useParams();
@@ -40,7 +39,7 @@ const TownPage = () => {
   return (
     <>
       <div className="h-80 w-full bg-[url('/town-page/default-hero.jpg')] bg-center">
-        <div className="container grid h-full items-center justify-center text-center text-white">
+        <div className="container grid items-center justify-center h-full text-center text-white">
           <TownInfo townData={townData} />
         </div>
       </div>

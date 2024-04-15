@@ -1,6 +1,5 @@
+import { cn } from "@lib/utils";
 import ClipLoader from "react-spinners/ClipLoader";
-
-import { cn } from "@/lib/utils";
 
 interface GlobalLoadingProps {
   className?: string;

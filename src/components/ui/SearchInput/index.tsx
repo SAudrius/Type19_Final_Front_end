@@ -1,13 +1,12 @@
+import { PostSearch, postSearch } from "@api/requests";
+import { useAppSelector } from "@lib/store/hooks";
+import { setSearchValue } from "@lib/store/SearchReducer";
+import { cn } from "@lib/utils";
+import { filterClassiefiedAdsData } from "@utils/helpers";
+import { useClickRemoveClickOutside } from "@utils/hooks/useClickRemoveClickOutside";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-
-import { useAppSelector } from "@/lib/store/hooks";
-import { setSearchValue } from "@/lib/store/SearchReducer";
-import { cn } from "@/lib/utils";
-import { PostSearch, postSearch } from "@/utils/api/requests";
-import { filterClassiefiedAdsData } from "@/utils/helpers";
-import { useClickRemoveClickOutside } from "@/utils/hooks/useClickRemoveClickOutside";
 
 interface SearchInputProps {
   classifiedAdsData: ClassifiedAd[];

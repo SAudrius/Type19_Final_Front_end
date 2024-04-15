@@ -1,13 +1,12 @@
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-
-import { useAppDispatch } from "@/lib/store/hooks";
+import { getCategories } from "@api/requests";
+import { useAppDispatch } from "@lib/store/hooks";
 import {
   setSearchCategoryId,
   setSearchCategoryName,
-} from "@/lib/store/SearchReducer";
-import { cn } from "@/lib/utils";
-import { getCategories } from "@/utils/api/requests/categories";
+} from "@lib/store/SearchReducer";
+import { cn } from "@lib/utils";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 interface CategoriesProps {
   className?: string;
