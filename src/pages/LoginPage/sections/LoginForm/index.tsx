@@ -1,7 +1,9 @@
 import { Form, Formik } from "formik";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 
+import { GlobalError, GlobalLoading } from "@/components/ui";
 import { CustomFormField } from "@/components/ui/CustomFormField";
 import { login } from "@/lib/store/AuthReducer";
 import { useAppDispatch } from "@/lib/store/hooks";
@@ -10,6 +12,8 @@ import { postLogin, PostLoginBody } from "@/utils/api/requests/auth/login";
 export const LoginForm = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
   return (
     <Formik
       initialValues={{ email: "", password: "" }}
@@ -21,8 +25,8 @@ export const LoginForm = () => {
           .max(20, "Must be 20 characters or less")
           .required("Password is required"),
       })}
-      onSubmit={async (values, { setSubmitting }) => {
-        setSubmitting(true);
+      onSubmit={async (values) => {
+        setLoading(true);
 
         const submitValues: PostLoginBody = {
           password: values.password,
@@ -38,10 +42,15 @@ export const LoginForm = () => {
 
           dispatch(login());
           navigate("/user");
-        } catch (err) {
-          console.log("err", err);
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        } catch (err: any) {
+          if (err.response.status === 401) {
+            setError("Invalid creadentials");
+          } else {
+            setError("Someting went wrong");
+          }
         }
-        setSubmitting(false);
+        setLoading(false);
       }}
     >
       {/* // eslint-disable-next-line @typescript-eslint/no-unused-vars */}
@@ -60,6 +69,15 @@ export const LoginForm = () => {
           >
             Submit
           </button>
+          {loading && !error && (
+            <GlobalLoading size="small" className="flex items-center" />
+          )}
+          {error && !loading && (
+            <GlobalError
+              className="flex items-center justify-center text-center"
+              message={error}
+            />
+          )}
         </Form>
       )}
     </Formik>

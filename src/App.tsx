@@ -47,7 +47,6 @@ export const App = () => {
         }
         const newToken = refreshTokenResponse.data.token;
         Cookies.set("jwtToken", newToken);
-        console.log("set new token");
       } catch (error) {
         dispatch(logout());
         navigate("/");
@@ -56,7 +55,6 @@ export const App = () => {
     refreshAuthToken();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoggedInLocalStorage, refreshToken]);
-  console.log("isOverlayVisible ===", isOverlayVisible);
 
   return (
     <div className={cn({ "overflow-hidden": isOverlayVisible })}>

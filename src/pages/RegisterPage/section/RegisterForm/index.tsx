@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 
 import { CustomFormField } from "@/components/ui/CustomFormField";
-import { setIsLoggedIn } from "@/lib/store/AuthReducer";
+import { login, setIsLoggedIn } from "@/lib/store/AuthReducer";
 import { useAppDispatch } from "@/lib/store/hooks";
 import {
   postRegister,
@@ -50,12 +50,11 @@ export const RegisterForm = () => {
           const registerResponse = await postRegister(submitValues);
           const jwtToken = registerResponse.data.token;
           const jwtTokenRefresh = registerResponse.data.refreshToken;
-          console.log("jwtToken ===", jwtToken);
-          console.log("jwtTokenRefresh ===", jwtTokenRefresh);
 
           document.cookie = `jwtToken=${jwtToken}; secure;`;
           document.cookie = `jwtTokenRefresh=${jwtTokenRefresh}; secure;`;
           dispatch(setIsLoggedIn(true));
+          dispatch(login());
           navigate("/user");
         } catch {
           console.log("err");

@@ -6,7 +6,6 @@ interface ListSortSectionProps {
 export const ListSortSection = ({
   classifiedAdsCount,
 }: ListSortSectionProps) => {
-  console.log("classifiedAdsCount ===", classifiedAdsCount);
   const sortOptions: SortOptions[] = [
     { id: 0, name: "Name (Ascending)" },
     { id: 1, name: "Name (Descending)" },

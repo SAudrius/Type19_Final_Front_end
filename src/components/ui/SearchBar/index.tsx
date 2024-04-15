@@ -42,7 +42,6 @@ export const SearchBar = ({ className }: SearchBarProps) => {
         setClassifiedAdsDisplayData(classifiedAdsResponse.data);
       } catch (err) {
         setError(true);
-        console.log("@err", err);
       }
       setLoading(false);
     };
