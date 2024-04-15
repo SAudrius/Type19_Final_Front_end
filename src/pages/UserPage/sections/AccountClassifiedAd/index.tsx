@@ -13,6 +13,7 @@ export const AccountClassifiedAds = () => {
   const [userClassifiedAds, setUserClassifiedAds] = useState<ClassifiedAd[]>(
     [],
   );
+
   const handleDelete = async (id: number) => {
     setLoading(true);
     if (!jwtToken) {
@@ -29,6 +30,7 @@ export const AccountClassifiedAds = () => {
     setUserClassifiedAds(filteredClassifiedAd);
     setLoading(false);
   };
+
   const handlePublished = async (id: number) => {
     setLoading(true);
     if (!jwtToken) {
@@ -51,6 +53,7 @@ export const AccountClassifiedAds = () => {
     setUserClassifiedAds(updatedClassifiedAds);
     setLoading(false);
   };
+
   useEffect(() => {
     setLoading(true);
     const intialData = async () => {
@@ -68,6 +71,7 @@ export const AccountClassifiedAds = () => {
     };
     intialData();
   }, [jwtToken]);
+
   return (
     <div className="mt-8">
       <h2 className="text-center text-3xl tracking-wide ">

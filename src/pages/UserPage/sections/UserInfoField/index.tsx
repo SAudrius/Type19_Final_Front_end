@@ -1,9 +1,8 @@
-import Cookies from "js-cookie";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
-import { logout } from "@/lib/store/AuthReducer";
-import { useAppDispatch } from "@/lib/store/hooks";
 import { cn } from "@/lib/utils";
+
+import { SkeletonUserData } from "../../skeleton/SkeletonUserData";
 
 interface UserInfoFieldProps {
   field: string;
@@ -22,15 +21,12 @@ export const UserInfoField = ({
   infoValues,
   className,
 }: UserInfoFieldProps) => {
-  const handleSubmit = () => {
-    console.log("hi");
-  };
-
   return (
     <div className={cn("", className)}>
       <p className="tracking-wide-6 text-lg capitalize leading-6">
         <span className="tracking-wide-6 font-medium uppercase">{field}: </span>
         {value}
+        {!value && <SkeletonUserData />}
       </p>
       {linkLabel && linkHref && (
         <Link
@@ -43,7 +39,6 @@ export const UserInfoField = ({
       {infoValues && (
         <button
           type="button"
-          onClick={handleSubmit}
           className="tracking-wide-12 mt-1 inline-block caption-top cursor-pointer underline"
         >
           Change info
